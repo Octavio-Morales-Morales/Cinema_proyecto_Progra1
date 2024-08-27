@@ -2,34 +2,70 @@
 //
 
 #include <iostream>
-#include "procesos.cpp"
+#include "procesos.h"
 using namespace std;
+int main(){
+	int option = 1, option2 = 0;
 
-int main()
-{
-	Movie movie[5];
+	do {
+		cout << "Bienvenido a nova cinema" << endl << "Elija una opcion" << endl;
+		cout << "1. Archivo" << "           " << "2.Mantenimiento " << endl << "3.Reserva " << "           " << "4. Venta";
+		cin >> option;
+		switch (option) {
 
-	string name;
-	int year, time, review;
-	for (int i = 0; i < 5; i++) {
-		cout << "name ";
-		cin >> name;
-		cout << "Digite el año ";
-		cin >> year;
-		cout << "Digite la duracion de la pelicula ";
-		cin >> time;
-		cout << "Digite la calificacion de las views ";
-		cin >> review;
-		system("cls");
-		movie[i].setName(name);
-		movie[i].setYear(year);
-		movie[i].setTime(time);
-		movie[i].setReview(review);
-	}
-	for (int i = 0; i < 5; i++) {
-		cout << movie[i].getName() << " - " << movie[i].getYear() << " - " << movie[i].getTime() << " - " << movie[i].getReview();
-	}
+		case 1:
+			cout << "Usted ha elegido la upcion Archivo" << endl << "1. Usuario " << endl << "2. Salir " << endl;
+			cin >> option2;
+			if (option2 == 1) {
+				cout << "ha elegido la opcion Usuario"<<endl;
+				cout << "Nombre: " << "Octavio Morales Morales " << endl;
 
-}
-};
-}
+			}
+			if (option2 == 2) {
+
+			}
+
+			break;
+
+
+		case 2:
+			cout << "Mantenimiento";
+			cout << "Usted ha elegido la upcion Mantenimiento" << endl << "1. Peliculas  " << endl << "2. Salas  " << endl << "3. Horario " << endl;
+			cin >> option2;
+			if (option2 == 1) {
+				
+				}
+
+
+			}
+			if (option2 == 2) {
+
+
+			}
+			if (option2 == 3) {
+
+
+			}
+
+
+			break;
+
+		case 3:
+			cout << "Reserva";
+			cout << "Usted ha elegido la upcion Reserva" << endl << "1. Peliculas  ";
+
+
+			break;
+
+		case 4:
+			cout << "Venta";
+			cout << "Usted ha elegido la upcion venta" << endl << "1. Peliculas  " << endl;
+
+
+			break;
+
+		default:
+
+			break;
+		}while (option == 5);
+	} 
