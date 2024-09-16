@@ -1,119 +1,92 @@
-// Cinema.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
-//
+
+
 
 #include <iostream>
-#include "procesos.h"
-#include "procesos.cpp"
+#include "Procesos.h"
+
 using namespace std;
 int main() {
 	Movie Movies;
+	Room room;
 	Schedule schedule;
 	Butaca butaca;
-	Reserve reserve;
-	Venta venta;
+	Venta_Reserva reserve;
 	Mantenimiento mantenimiento;
-	int FILAS = 5,COLUMNAS=10;
-	
-	vector<vector<char>> sala(FILAS, vector<char>(COLUMNAS, 'L'));
-			int option, fila, columna;
-	
-	mantenimiento.generate_Movies();
-	mantenimiento.generate_Reserve();
-
-	int option = 1, option2 = 0;
-
+	Mantenimiento cinemovie[4];
+	int FILAS = 5, COLUMNAS = 10;
+	int option, 
+	int seleccion2 = 0;
+	cout << "Bienvenido a nova cinema" << endl << "Elija una opcion" << endl;
+	cout << "1. Archivo" << "           " << "2.Mantenimiento " << endl << "3.Reserva " << "           " << "4. Venta";
+	cin >> option;
 	do {
 		cout << "Bienvenido a nova cinema" << endl << "Elija una opcion" << endl;
 		cout << "1. Archivo" << "           " << "2.Mantenimiento " << endl << "3.Reserva " << "           " << "4. Venta";
 		cin >> option;
-		switch (option) {
+		if (option == 1) {
+			cout << "Usted ha elegido la upcion Archivo" << endl << "1. Acerca de " << endl << "2. Salir " << endl;
+			cin >> seleccion2;
+			if (seleccion2 == 1) {
+				cout << "Esta es la aplicacion para informar,Comprar y reservar tikets para funciones de cine." << endl;
+				cout << "Nombre: " << "Nova Cinema. " << endl << "By. Octavio." << endl;
 
-		case 1:
-			cout << "Usted ha elegido la upcion Archivo" << endl << "1. Usuario " << endl << "2. Salir " << endl;
-			cin >> option2;
-			if (option2 == 1) {
-				cout << "ha elegido la opcion Usuario"<<endl;
-				cout << "Nombre: " << "Octavio Morales Morales " << endl<< "1. Salir";
-				
 			}
-			if (option2 == 2) {
-				return option == 5;
+			if (seleccion2 == 4) {
+
 			}
-
-			break;
-
-
-		case 2:
+		}
+		if (option == 2) {
 			cout << "Mantenimiento";
-			cout << "Usted ha elegido la upcion Mantenimiento" << endl << "1. Peliculas  " << endl << "2. Salas  " << endl << "3. Horario " << endl;
-			cin >> option2;
-			if (option2 == 1) {
-				cout << "1. Agregar Peliculas" << endl << "Que pelicula desea editar"<< endl;
-				cin >> ;
-
-				}
-
+			cout << "Usted ha elegido la opcion Mantenimiento" << endl << "1. Peliculas  " << endl << "2. Salas  " << endl << "3. Horario " << endl;
+			cin >> seleccion2;
+			if (seleccion2 == 1) {
+				cout << "1. Agregar Peliculas" << endl << "Que pelicula desea editar" << endl;
+				cout <<Movies.getName();
 
 			}
-			if (option2 == 2) {
+			if (seleccion2 == 2) {
 				cout << "2. Editar Salas" << endl;
-
-
+				cout<<room.getMostrarSala();
 			}
-			if (option2 == 3) {
+			if (seleccion2 == 3) {
 				cout << "3. Editar Horarios" << endl;
 
+				cout << schedule.getDate() << schedule.getStartTime() << schedule.getFinishTime();
 
 			}
+		}
 
+		if (option == 3) {
+			cout << "Reserva" << endl;
+			int seleccion=0;
 
-			break;
-
-		case 3:
-			
-
-			do {
-				cout << "\n----- Menú -----\n";
-				cout << "1. Mostrar sala\n";
-				cout << "2. Reservar butaca\n";
-				cout << "3. Comprar butaca\n";
-				cout << "4. Salir\n";
-				cout << "Elige una opción: ";
-				cin >> option;
-
-				if (option == 1) {
-					mostrarSala(sala);
+			/*	cout << "Seleccione la pelicula a consultar" << endl;
+				cout << "1. " << mantenimiento.getGenerate_Movies();
+				cin >> seleccion;
+				if (seleccion > 0 && seleccion <= 4) {
+					cout << cinemovie[seleccion - 1].getName();
+					for (int i = 0; i > 10; i++) {
+						if (schedule[i].movies.getName() == cinemovie[seleccion - 1].getName()) {
+							Room room = schedule[i].getRoom();
+							cout << "Estos son los horarios disponibles";
+							cout << "sala" << room.getNumber();
+							cout << "inicio" << schedule[i].getstartTime();
+							cout << "Fin: " << schedule[i].getfinishTime() << endl;
+							cout << "Fecha: " << schedule[i].getDate() << endl;
+						}
+					}
 				}
-				if (option == 2) {
-					cout << "Introduce la fila y columna para reservar (0 a " << FILAS - 1 << " y 0 a " << COLUMNAS - 1 << "): ";
-					cin >> fila >> columna;
-					reservarButaca(sala, fila, columna);
-				}
-				if (option == 3) {
-					cout << "Introduce la fila y columna para comprar (0 a " << FILAS - 1 << " y 0 a " << COLUMNAS - 1 << "): ";
-					cin >> fila >> columna;
-					comprarButaca(sala, fila, columna);
-				}
-				if (option == 4) {
-					cout << "Saliendo...\n";
-				}
+				else {
+					cout << "Selección inválida";
+				}*/
 
-			} while (option != 4);
-
-			return 0;
-	}
-
-			break;
-
-		case 4:
+		} if (option == 4) {
 			cout << "Venta";
 			cout << "Usted ha elegido la upcion venta" << endl << "1. Peliculas  " << endl;
 
+		}
 
-			break;
+	} while (option == 5);
+	cout << "Saliste";
+}
 
-		default:
-
-			break;
-		}while (option == 5);
-	} 
