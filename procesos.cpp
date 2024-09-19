@@ -17,7 +17,6 @@ void Movie::setTime(int time) { this->time = time; }
 void Movie::setYear(int year) { this->year = year; }
 void Movie::setCountry(string country) { this->country = country; }
 void Movie::setReview(int review) { this->review = review; }
-void Movie::setData(bool data) { this->data = data; }
 
 string Movie::getName() { return this->name; }
 int Movie::getTime() { return this->time; }
@@ -26,31 +25,18 @@ string Movie::getCountry() { return this->country; }
 int Movie::getReview() { return this->review; }
 
 
-Butaca::Butaca() {}
-Butaca::Butaca(int id, char state) {
-	this->id = id;
-	this->state = state;
-}
-Butaca::~Butaca(){}
-void Butaca::setId(int id) { this->id = id; }
-void Butaca::setState(char state) { this->state = state; }
-
-int Butaca::getId() { return id; }
-char Butaca::getState() { return state; }
-void generatesalas() {}
-
 
 Room::Room() {
-	generateSalaCine();
-	mostrarSala();
-	reservarButaca();
-	comprarButaca();
-	getGenerateSalaCine();
-	getMostrarSala();
-	getReservarButaca();
-	getComprarButaca();
+	void generateSalaCine();
+	void mostrarSala();
+	void reservarButaca();
+	void comprarButaca();
+	int** getGenerateSalaCine();
+	int** getMostrarSala();
+	int** getReservarButaca();
+	int** getComprarButaca();
 }
-Room::Room(int number, int manysits, double price) {
+Room::Room( int number, int manysits, double price) {
 	this->number = number;
 	this->manysits = manysits;
 	this->price = price;
@@ -58,100 +44,80 @@ Room::Room(int number, int manysits, double price) {
 Room::~Room() {
 	for (int k = 0; k < filas; k++) {
 		delete[] sala[k];
-		delete[] reserva[k];
+		
 	}
 	delete[] sala;
-	delete[] reserva;
+	
 }
+void Room::setId(int id) { this->id = id; }
+void Room::setState(char state) { this->state = state; }
 void Room::setNumber(int number) { this->number = number; }
 void Room::setPrice(double price) { this->price = price; }
 void Room::setManysits(int manysits) { this->manysits = manysits; }
+void Room::setAuxf(int auxf) { this->auxf = auxf; }
+void Room::setAuxc(int auxc) { this->auxc = auxc; }
+int Room::getId() { return this-> id; }
+char Room::getState() { return this->state; }
 int Room::getManysits() { return this->manysits; }
 int Room::getNumber() { return this->number; }
 double Room::getPrice() { return this->price; }
 
-void Room::generateSalaCine() {
+void Room::generateSalaCine(int** sala,int filas,int columnas) {
 
 	sala = new int* [filas];
-	for (int k = 0; k < filas; k++) {
-		sala[k] = new int[columnas];
+	for (int i = 0; i < filas; i++) {
+		sala[i] = new int[columnas];
 	}
-	reserva = new int* [Filas];
-	for (int k = 0; k < Filas; k++) {
-		reserva[k] = new int[Columnas];
-	}
-
-	int id = 4;
+	
 	for (int i = 0; i < filas; ++i) {
 		for (int j = 0; j < columnas; ++j) {
-			sala[i][j] = id;
-			reserva[i][j] = 0;
+			sala[i][j] = id=0;
+
 		}
 
 
 	}
 }
-void Room::mostrarSala() {
-	cout << "Sala de cine: \n";
+
+void Room::mostrarSala(int** sala ,int filas, int columnas) {
+	cout << "Sala de cine:\n";
 	for (int i = 0; i < filas; ++i) {
 		for (int j = 0; j < columnas; ++j) {
-			cout << sala[i][j] <<"||" << reserva[i][j] << " ";
+			cout << sala[i][j] <<"||";
 		}
 		cout << endl;
 	}
 }
 
-
-
-
-void Room::reservarButaca() {
-	int auxf, auxc;
-	cout << "ingrese la posicion del asiento como #<10,#<5";
-	cin >> auxf >> auxc;
-	if (auxf >= 0 && auxf < 10 && auxc >= 0 && auxc < 10) {
-		if (reserva[auxf][auxc] == 0) {
-			reserva[auxf][auxc] = 1;// '1' para butaca reservada
-			sala[auxf][auxc] = reserva[auxf][auxc];
-			cout << "Butaca reservada correctamente.\n";
+void Room::reservarButaca(int** sala, int filas, int columnas, int auxf, int auxc)
+{
+	for (int i = 0; i <= filas; i++) {
+		for (int j = 0; j <= columnas; j++) {
+			if (auxf >= 0 && sala[i][auxc] == auxf && auxc >= 0 && sala[auxf][j] == auxc) {
+				sala[auxf][auxc] = 2;
+				cout << "Butaca reservada correctamente.\n";
+				break;
+			}
+			else {
+				cout << "Error: La butaca ya está reservada.\n";
+			}
 		}
-		else {
-			cout << "Error: La butaca ya está reservada o comprada.\n";
-		}
-	}
-	else {
-		cout << "Error: Fila o columna fuera de rango.\n";
-	}
-	cout << "Sala de cine: \n";
-	for (int i = 0; i < filas; ++i) {
-		for (int j = 0; j < columnas; ++j) {
-			cout << sala[i][j] << "||" << reserva[i][j] << " ";
-		}
-		cout << endl;
 	}
 }
-void Room::comprarButaca() {
-	int auxf, auxc;
-	cout << "ingrese la posicion del asiento como #<10,#<5";
-	cin >> auxf >> auxc;
-	if (auxf >= 0 && auxf < 10 && auxc >= 0 && auxc < 10) {
-		if (reserva[auxf][auxc] == 0 || sala[auxf][auxc] == 1) {
-			reserva[auxf][auxc] = 2;  // '2' para butaca comprada
-			sala[auxf][auxc] = reserva[auxf][auxc];
-			cout << "Butaca comprada correctamente.\n";
+
+
+void Room::comprarButaca(int** sala, int filas, int columnas, int auxf, int auxc) {
+	
+	for (int i = 0; i <= filas; i++) {
+		for (int j = 0; j <= columnas; j++) {
+			if (auxf >= 0 && sala[i][auxc] == auxf && auxc >= 0 && sala[auxf][j] == auxc) {
+
+				cout << "Butaca comprada correctamente.\n";
+			}
+			else {
+				cout << "Error: La butaca ya está comprada.\n";
+			}
 		}
-		else {
-			cout << "Error: La butaca ya está comprada.\n";
-		}
-	}
-	else {
-		cout << "Error: Fila o columna fuera de rango.\n";
-	}
-	cout << "Sala de cine: \n";
-	for (int i = 0; i < filas; ++i) {
-		for (int j = 0; j < columnas; ++j) {
-			cout << sala[i][j] << "||" << reserva[i][j] << " ";
-		}
-		cout << endl;
 	}
 }
 int** Room::getGenerateSalaCine() {
@@ -161,7 +127,9 @@ int** Room::getMostrarSala() {
 	return this->sala;
 }
 int** Room::getReservarButaca() {
+
 	return this->sala;
+	
 }
 int** Room::getComprarButaca() {
 	return this->sala;
@@ -196,19 +164,36 @@ Room Schedule::getRoom() { return this->room; }
 Venta_Reserva::Venta_Reserva() {
 
 }
-Venta_Reserva::Venta_Reserva(int Id_customer, string Customer_name, int number_reserve, double Totalprice) {
+Venta_Reserva::Venta_Reserva(int Id_customer, string Customer_name, int number_reserve) {
 	this->id_customer = Id_customer;
 	this->Customer_name = Customer_name;
 	this->number_reserve = number_reserve;
-	this->Totalprice = Totalprice;
 }
 Venta_Reserva::~Venta_Reserva(){}
 void Venta_Reserva::setId_Customer(int id_customer) { this->id_customer = id_customer; }
-void Venta_Reserva::SetCustomer_Name(string Customer_name) { this->Customer_name = Customer_name; }
-void Venta_Reserva::setNumber_reserve(int number_reserve) { this->number_reserve = number_reserve; }
-void Venta_Reserva::setTotalprice(double Totalprice) { this->Totalprice = Totalprice; }
-void Venta_Reserva::generateReserva() {
 
+void Venta_Reserva::SetCustomer_Name(string Customer_name) { this->Customer_name = Customer_name; }
+
+void Venta_Reserva::setNumber_reserve(int number_reserve) { this->number_reserve = number_reserve; }
+
+void Venta_Reserva::setTotalprice(double Totalprice) { this->Totalprice = Totalprice; }
+
+void Venta_Reserva::generateReserva(Room room, int id_customer, string Customer_name, int number_reserve) {
+	int reserva;
+				cout << "Ingrese su cedula" << endl;
+				cin >> id_customer;
+				cout << "Ingrese su nombre"<<endl;
+				cin >>Customer_name ;
+				cout << "ingrese su numero de reseva"<<endl;
+				cin >> reserva;
+				if (number_reserve == reserva) {
+					cout << room.getMostrarSala() << endl;
+					cout << room.reservarButaca();
+				}
+				else {
+					cout << "Selección inválida";
+
+				}
 }
 void Venta_Reserva::generateVenta() {
 
@@ -230,15 +215,17 @@ Mantenimiento::Mantenimiento() {
 	getGenerate_Movies();
 	generate_Schedule();
 	generate_Room();
-	generate_Reserve();
-	generate_venta();
 	getGenerate_venta();
 	getGenerate_Reserva();
 	getGenerate_Schedule();
 	getGenerate_Room();
 
 }
-void Mantenimiento::generate_Movies() {
+Mantenimiento::~Mantenimiento(){
+
+}
+void Mantenimiento::generate_Movies(Movie cinemovie[4]) {
+
 
 	Movie movie1("Deadpool", 2024, 2, "USA", 10);
 	cinemovie[0] = movie1;
@@ -252,13 +239,26 @@ void Mantenimiento::generate_Movies() {
 	Movie movie4("Moppets ", 2024, 2, "JAPON", 3);
 	cinemovie[3] = movie4;
 }
+void Mantenimiento::setEdit_Movie(Movie cinemovie[4], string name) {
+	
+		if (cinemovie[i].getName() == cinemovie[i - 1].getName()) {
+			cout << "Nuevo nombre" << endl;
+			cin >> cinemovie[i].setName();
+			cout << "N" << endl;
+			cin >> name;
+
+			Movie movie(string name, int time, int year, string country, int review);
+		}
+	}
+}
+Movie Mantenimiento::getEdit_Movie() { return this->cinemovie[4]; }
 Movie Mantenimiento::getGenerate_Movies() { return this->cinemovie[4]; }
 
 void Mantenimiento::generate_Room() {
 
-	Room room1(1, 25, 4000);
+	Room room1(2, 25, 4000);
 	room[0] = room1;
-	Room room2(2, 25, 4000);
+	Room room2(4, 25, 4000);
 	room[1] = room2;
 
 }

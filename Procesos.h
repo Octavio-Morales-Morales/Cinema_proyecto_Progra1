@@ -1,11 +1,15 @@
 #pragma once
 #include <iostream>
+#include <ostream>
+#include <string>
+#include <vector>
+
 using namespace std;
 class Movie {
 private:
 	string name; string country;
 	int time = 0, year = 0, review = 0;
-	bool data = false;
+	
 public:
 	Movie();
 	Movie(string name, int time, int year, string country, int review);
@@ -15,7 +19,6 @@ public:
 	void setYear(int year);
 	void setCountry(string country);
 	void setReview(int review);
-	void setData(bool data);
 
 	string getName();
 	int getTime();
@@ -24,45 +27,40 @@ public:
 	int getReview();
 };
 
-class Butaca {
+class Room {
 private:
 	int id = 0;
 	char state;
-
-public:
-	Butaca();
-	Butaca(int id, char state);
-	~Butaca();
-	void setId(int id);
-	void setState(char state);
-
-	int getId();
-	char getState();
-};
-class Room {
-private:
 	int number;
 	int manysits;
 	double price;
+	int auxf;
+	int auxc;
 	int** sala, filas = 10, columnas = 5;
 	int** reserva, Filas = 10, Columnas = 5;
-	Butaca butaca;
-
+	
 
 public:
 	Room();
 	Room(int number, int manysits, double price);
 	~Room();
+	void setId(int id);
+	void setState(char state);
 	void setNumber(int number);
 	void setPrice(double price);
 	void setManysits(int manysits);
+	void setAuxf(int auxf);
+	void setAuxc(int auxc);
+	int getId();
+	char getState();
 	int getManysits();
 	int getNumber();
 	double getPrice();
-	void generateSalaCine();
-	void mostrarSala();
-	void reservarButaca();
-	void comprarButaca();
+	void generateSalaCine(int** sala, int filas, int columnas);
+	void mostrarSala(int** sala, int filas, int columnas);
+	void reservarButaca(int** sala,int filas, int columnas, int auxf, int auxc);
+	void comprarButaca(int** sala, int filas, int columnas , int auxf, int auxc);
+
 	int** getGenerateSalaCine();
 	int** getMostrarSala();
 	int** getReservarButaca();
@@ -109,7 +107,7 @@ private:
 	Room room;
 public:
 	Venta_Reserva();
-	Venta_Reserva(int Id_customer, string Customer_name, int number_reserve, double Totalprice);
+	Venta_Reserva(int Id_customer, string Customer_name, int number_reserve);
 	~Venta_Reserva();
 	void setId_Customer(int id_customer);
 	void SetCustomer_Name(string Customer_name);
@@ -120,7 +118,7 @@ public:
 	string getCustomer_name();
 	int getNumber_reserve();
 	double getBooking_price();
-	void generateReserva();
+	void generateReserva(Room room, int id_customer, string Customer_name, int number_reserve);
 	void generateVenta();
 	Movie getMovie();
 	Schedule getSchedule();
@@ -134,17 +132,16 @@ private:
 	Room room1;
 	Room room[2];
 	Venta_Reserva reserve[50];
-	Butaca butaca[50];
 public:
 	Mantenimiento();
-	void generate_Movies();
+	~Mantenimiento();
+	void generate_Movies(Movie cinemovie[4]);
 	Movie getGenerate_Movies();
+	void setEdit_Movie(Movie cinemovie[4], string name);
 	void generate_Schedule();
 	void generate_Room();
-	void generate_Reserve();
-	void generate_venta();
 	Schedule getGenerate_venta();
-	Venta_Reserva getGenerate_Reserva();
+	
 	Schedule getGenerate_Schedule();
 	Room getGenerate_Room();
 };
